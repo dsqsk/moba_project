@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>新建分类</h1>
+    <h1>新建分类 {{id}}</h1>
 
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item lable='名称'>
@@ -15,14 +15,22 @@
 
 <script>
 export default {
+  props: {
+    id: {}
+  },
   data () {
     return {
-      model: {}
+      model: {
+        name: ''
+      }
     }
   },
   methods: {
     async save () {
-      const res = await this.$http.post('categories', this.model)
+      const res = await this.$http.post('categories', {
+        id: this.id,
+        name: this.model.name
+      })
       console.log(res);
       this.$router.push('/categories/list')
       this.$message({
