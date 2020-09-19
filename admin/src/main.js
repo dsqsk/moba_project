@@ -6,7 +6,7 @@ import http from './plugins/http'
 
 Vue.config.productionTip = false
 
-//加载至vue原型
+// 加载至vue原型
 Vue.prototype.$http = http
 
 new Vue({
