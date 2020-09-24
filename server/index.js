@@ -3,7 +3,7 @@ const express = require('express')
 // 定義
 const app = express()
 
-// app.use(require('cors')())
+app.use(require('cors')())
 app.use(express.json())
 
 require('./admin_routes/index')(app)
