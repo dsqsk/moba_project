@@ -49,7 +49,7 @@ export default {
         message: '保存成功'
       })
     },
-    async fetch () {
+    async fetchList () {
       const res = await this.$http.get(`/rest/categories/${this.id}`)
       this.model = res.data
     },
@@ -61,7 +61,7 @@ export default {
 
   created () {
     this.fetchParents()
-    this.id && this.fetch()
+    this.id && this.fetchList()
   }
 }
 

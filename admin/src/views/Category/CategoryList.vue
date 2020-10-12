@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    async fetch () {
+    async fetchList () {
       const res = await this.$http.get('/rest/categories')
       this.items = res.data
     },
@@ -42,12 +42,12 @@ export default {
             type: 'success',
             message: '删除成功!'
           })
-          this.fetch()
+          this.fetchList()
         })
     }
   },
   created () {
-    this.fetch()
+    this.fetchList()
   }
 }
 </script>
