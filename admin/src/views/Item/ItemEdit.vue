@@ -9,7 +9,7 @@
         <el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false"
           :on-success="afterUpload">
           <img v-if="model.icon" :src="model.icon" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i v-else class="el-icon-circle-plus-outline avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item>
@@ -60,7 +60,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
@@ -74,21 +74,15 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
   text-align: center;
 }
-/* 加号字体图标定位 */
-.el-icon-plus:before {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 5rem;
+  height: 5rem;
   display: block;
 }
 </style>
