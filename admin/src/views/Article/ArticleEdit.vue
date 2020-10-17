@@ -11,6 +11,10 @@
       <el-form-item label='标题'>
         <el-input v-model="model.header"></el-input>
       </el-form-item>
+      <el-form-item label='文章详情'>
+        <vue-editor id="editor" useCustomImageHandler @image-added="handleImageAdded" v-model="model.body">
+        </vue-editor>
+      </el-form-item>
       <el-form-item>
         <el-button type='primary' native-type='submit'>保存</el-button>
       </el-form-item>
@@ -19,9 +23,13 @@
 </template>
 
 <script>
+import { VueEditor } from 'vue2-editor'
 export default {
   props: {
     id: {}
+  },
+  components: {
+    VueEditor
   },
   data () {
     return {
@@ -56,6 +64,14 @@ export default {
     async fetchCategories () {
       const res = await this.$http.get('/rest/categories')
       this.categories = res.data
+    },
+    async handleImageAdded (file, Editor, cursorLocation, resetUploader) {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const res = await this.$http.post('upload', formData)
+      Editor.insertEmbed(cursorLocation, 'image', res.data.url)
+      resetUploader()
     }
   },
 

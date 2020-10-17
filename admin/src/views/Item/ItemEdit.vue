@@ -9,7 +9,7 @@
         <el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false"
           :on-success="afterUpload">
           <img v-if="model.icon" :src="model.icon" class="avatar">
-          <i v-else class="el-icon-circle-plus-outline avatar-uploader-icon"></i>
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item>
@@ -60,29 +60,5 @@ export default {
 
 </script>
 
-<style scoped>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 5rem;
-  height: 5rem;
-  line-height: 5rem;
-  text-align: center;
-}
-
-.avatar {
-  width: 5rem;
-  height: 5rem;
-  display: block;
-}
+<style>
 </style>

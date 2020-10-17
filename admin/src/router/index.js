@@ -3,12 +3,18 @@ import VueRouter from 'vue-router'
 import Layout from '../views/Layout.vue'
 import CategoryEdit from '../views/Category/CategoryEdit.vue'
 import CategoryList from '../views/Category/CategoryList.vue'
+
 import HeroEdit from '../views/Hero/HeroEdit.vue'
 import HeroList from '../views/Hero/HeroList.vue'
+
 import ItemEdit from '../views/Item/ItemEdit.vue'
 import ItemList from '../views/Item/ItemList.vue'
+
 import ArticleEdit from '../views/Article/ArticleEdit.vue'
 import ArticleList from '../views/Article/ArticleList.vue'
+
+import AdEdit from '../views/Ad/AdEdit.vue'
+import AdList from '../views/Ad/AdList.vue'
 
 Vue.use(VueRouter)
 
@@ -32,7 +38,12 @@ const routes = [
 
       { path: '/articles/create', component: ArticleEdit },
       { path: '/articles/edit/:id', component: ArticleEdit, props: true },
-      { path: '/articles/list', component: ArticleList }
+      { path: '/articles/list', component: ArticleList },
+
+      { path: '/ads/create', component: AdEdit },
+      { path: '/ads/edit/:id', component: AdEdit, props: true },
+      { path: '/ads/list', component: AdList }
+
     ]
   }
 
