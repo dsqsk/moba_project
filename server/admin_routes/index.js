@@ -51,11 +51,35 @@ module.exports = app => {
     next()
   }, router)
 
+  // 图片上传
   const multer = require('multer')
   const upload = multer({ dest: __dirname + '/../uploads' })
   app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
+  })
+
+  app.post('/admin/api/login', async (req, res) => {
+    // const data = req.body
+    // const username = data.username
+    // const password = data.password
+    const { username, password } = req.body
+    // 根据username查找
+    const AdminUser = require('../models/AdminUser')
+    const user = await AdminUser.findOne({ username }).select('+password')
+    if (!user) {
+      return res.status(403).send('用户不存在')
+    }
+    // 校验密码
+    const bcrypt = require('bcrypt')
+    const isValid = bcrypt.compareSync(password, user.password)
+    if (!isValid) {
+      return res.status(403).send('密码错误')
+    }
+    // 返回token
+    const jwt = require('jsonwebtoken')
+    const token = jwt.sign({ id: user.id, }, app.get('secret'))
+    res.send({ token })
   })
 }
