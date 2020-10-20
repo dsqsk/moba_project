@@ -1,7 +1,8 @@
 // 导出为函数，接受函数对象供外层使用
 module.exports = app => {
   const express = require('express')
-
+  const jwt = require('jsonwebtoken')
+  const AdminUser = require('../models/AdminUser')
   // express子路由
   const router = express.Router({
     mergeParams: true // 合并url参数
@@ -29,14 +30,24 @@ module.exports = app => {
   })
 
   //分类列表
-  router.get('/', async (req, res) => {
-    const querryOptions = {}
-    if (req.Model.modelName === 'categories') {
-      querryOptions.populate('parent')
-    }
-    const items = await req.Model.find(req.body).populate('parent')
-    res.send(items)
-  })
+  router.get('/', async (req, res, next) => {
+    // 中间件校验token
+    const token = String(req.headers.authorization || '').split(' ').pop()
+    // const token = req.headers.authorization
+    const { id } = jwt.verify(token, app.get('secret'))
+    // 根据id校验用户
+    req.user = AdminUser.findById(id)
+    console.log(req.user)
+    await next()
+  },
+    async (req, res) => {
+      const querryOptions = {}
+      if (req.Model.modelName === 'categories') {
+        querryOptions.populate('parent')
+      }
+      const items = await req.Model.find(req.body).populate('parent')
+      res.send(items)
+    })
 
   // 详情页数据
   router.get('/:id', async (req, res) => {
@@ -46,9 +57,10 @@ module.exports = app => {
 
   //挂载子路由
   app.use('/admin/api/rest/:resource', async (req, res, next) => {
-    const Modelname = require('inflection').classify(req.params.resource)
+    const inflection = require('inflection')
+    const Modelname = inflection.classify(req.params.resource)
     req.Model = require(`../models/${Modelname}`)
-    next()
+    await next()
   }, router)
 
   // 图片上传
@@ -66,7 +78,6 @@ module.exports = app => {
     // const password = data.password
     const { username, password } = req.body
     // 根据username查找
-    const AdminUser = require('../models/AdminUser')
     const user = await AdminUser.findOne({ username }).select('+password')
     if (!user) {
       return res.status(403).send('用户不存在')
@@ -78,7 +89,6 @@ module.exports = app => {
       return res.status(403).send('密码错误')
     }
     // 返回token
-    const jwt = require('jsonwebtoken')
     const token = jwt.sign({ id: user.id, }, app.get('secret'))
     res.send({ token })
   })
