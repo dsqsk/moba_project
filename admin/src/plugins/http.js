@@ -7,7 +7,10 @@ const http = axios.create({
 
 // 请求拦截器
 http.interceptors.request.use(function (config) {
-  config.headers.Authorization = 'Bearer ' + localStorage.token
+  // 判断token是否为空
+  if (localStorage.token) {
+    config.headers.Authorization = 'Bearer ' + localStorage.token
+  }
   return config
 }, function (error) {
   return Promise.reject(error)

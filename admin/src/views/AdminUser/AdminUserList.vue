@@ -29,7 +29,7 @@ export default {
     },
     // 删除分类
     async remove (row) {
-      this.$confirm(`是否删除分类"${row.name}"`, '提示', {
+      this.$confirm('是否删除管理员账号', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
