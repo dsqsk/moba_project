@@ -31,15 +31,14 @@ module.exports = app => {
   })
 
   //分类列表
-  router.get('/',
-    async (req, res) => {
-      const querryOptions = {}
-      if (req.Model.modelName === 'categories') {
-        querryOptions.populate('parent')
-      }
-      const items = await req.Model.find(req.body).populate('parent')
-      res.send(items)
-    })
+  router.get('/', async (req, res) => {
+    const querryOptions = {}
+    if (req.Model.modelName === 'categories') {
+      querryOptions.populate('parent')
+    }
+    const items = await req.Model.find(req.body).populate('parent')
+    res.send(items)
+  })
 
   // 详情页数据
   router.get('/:id', async (req, res) => {
@@ -55,7 +54,7 @@ module.exports = app => {
   // 图片上传
   const multer = require('multer')
   const upload = multer({ dest: __dirname + '/../uploads' })
-  app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
+  app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
@@ -75,9 +74,8 @@ module.exports = app => {
     // 校验密码
     const bcrypt = require('bcrypt')
     const isValid = bcrypt.compareSync(password, user.password)
-    if (!isValid) {
-      return res.status(403).send('密码错误')
-    }
+    assert(user, 403, '用户不存在')
+
     // 返回token
     const token = jwt.sign({ id: user.id, }, app.get('secret'))
     res.send({ token })
