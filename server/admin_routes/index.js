@@ -31,19 +31,7 @@ module.exports = app => {
   })
 
   //分类列表
-  router.get('/', async (req, res, next) => {
-    // 中间件校验token
-    const token = String(req.headers.authorization || '').split(' ').pop()
-    assert(user, 401, '请先登录')
-
-    const { id } = jwt.verify(token, app.get('secret'))
-    assert(user, 401, '请先登录')
-
-    // 根据id校验用户
-    req.user = AdminUser.findById(id)
-    assert(user, 401, '请先登录')
-    await next()
-  },
+  router.get('/',
     async (req, res) => {
       const querryOptions = {}
       if (req.Model.modelName === 'categories') {
@@ -59,13 +47,10 @@ module.exports = app => {
     res.send(model)
   })
 
+  const authMiddleware = require('../middleware/auth')
+  const resourceMiddleware = require('../middleware/resource')
   //挂载子路由
-  app.use('/admin/api/rest/:resource', async (req, res, next) => {
-    const inflection = require('inflection')
-    const Modelname = inflection.classify(req.params.resource)
-    req.Model = require(`../models/${Modelname}`)
-    await next()
-  }, router)
+  app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), router)
 
   // 图片上传
   const multer = require('multer')
