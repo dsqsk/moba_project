@@ -23,7 +23,7 @@ http.interceptors.response.use(function (response) {
   if (error.response.data) {
     Vue.prototype.$message({
       type: 'error',
-      message: error.response.data
+      message: error.response.data.message
     })
     return Promise.reject(error)
   }
