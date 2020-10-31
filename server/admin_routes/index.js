@@ -54,7 +54,7 @@ module.exports = app => {
   // 图片上传
   const multer = require('multer')
   const upload = multer({ dest: __dirname + '/../uploads' })
-  app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
+  app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
@@ -74,7 +74,7 @@ module.exports = app => {
     // 校验密码
     const bcrypt = require('bcrypt')
     const isValid = bcrypt.compareSync(password, user.password)
-    assert(user, 403, '用户不存在')
+    assert(isValid, 403, '用户不存在')
 
     // 返回token
     const token = jwt.sign({ id: user.id, }, app.get('secret'))
