@@ -2,7 +2,7 @@
 module.exports = app => {
   const express = require('express')
   const jwt = require('jsonwebtoken')
-  const AdminUser = require('../models/AdminUser')
+  const AdminUser = require('../../models/AdminUser')
   const assert = require('http-assert')
   // express子路由
   const router = express.Router({
@@ -46,14 +46,14 @@ module.exports = app => {
     res.send(model)
   })
 
-  const authMiddleware = require('../middleware/auth')
-  const resourceMiddleware = require('../middleware/resource')
+  const authMiddleware = require('../../middleware/auth')
+  const resourceMiddleware = require('../../middleware/resource')
   //挂载子路由
   app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), router)
 
   // 图片上传
   const multer = require('multer')
-  const upload = multer({ dest: __dirname + '/../uploads' })
+  const upload = multer({ dest: __dirname + '/../../uploads' })
   app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
