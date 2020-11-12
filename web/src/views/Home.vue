@@ -59,11 +59,11 @@
           <div class="py-2">对局环境</div>
         </div>
         <div class="nav-items mb-3">
-          <i class="sprite sprite-wxwzt"></i>
+          <i class="sprite sprite-djhj"></i>
           <div class="py-2">无限王者团</div>
         </div>
         <div class="nav-items mb-3">
-          <i class="sprite sprite-cyhdy"></i>
+          <i class="sprite sprite-djhj"></i>
           <div class="py-2">创意互动营</div>
         </div>
       </div>
@@ -75,11 +75,10 @@
     <!-- end nav icons -->
     <m-list-card icon="new" title="新闻资讯" :categories="newsData">
       <template #items="{category}">
-        <div class="py-2" v-for="(news,i) in category.newsitem" :key="i">
-          <span>[{{news.categoryName}}]</span>
-          <span>|</span>
-          <span>{{news.title}}</span>
-          <span>{{news.data}}</span>
+        <div class="py-2 fs-lg d-flex" v-for="(news,i) in category.newsList" :key="i">
+          <span class="text-select mr-2">[{{news.categoryName}}]</span>
+          <span class="flex-1 text-grey_dark text-ellipsis pr-2">{{news.header}}</span>
+          <span class="text-grey_light_2 fs-sm">{{news.createdAt | date}}</span>
         </div>
       </template>
     </m-list-card>
@@ -90,7 +89,13 @@
 </template> 
 
 <script>
+import dayjs from 'dayjs'
 export default {
+  filters: {
+    date (val) {
+      return dayjs(val).format('MM/DD')
+    }
+  },
   data () {
     return {
       swiperOptions: {
@@ -98,49 +103,17 @@ export default {
           el: '.swiper-pagination'
         }
       },
-      newsData: [
-        {
-          name: "热门",
-          newsitem: [
-            {
-              categoryName: '公告',
-              title: '不停机公告',
-              data: '07/01'
-            },
-            {
-              categoryName: '公告',
-              title: '不停机公告',
-              data: '07/01'
-            },
-            {
-              categoryName: '公告',
-              title: '不停机公告',
-              data: '07/01'
-            }
-          ]
-        },
-        {
-          name: "新闻",
-          newsitem: [
-            {
-              categoryName: '公告',
-              title: '不停机公告',
-              data: '07/01'
-            },
-            {
-              categoryName: '公告',
-              title: '不停机公告',
-              data: '07/01'
-            },
-            {
-              categoryName: '公告',
-              title: '不停机公告',
-              data: '07/01'
-            }
-          ]
-        }
-      ]
+      newsData: []
     }
+  },
+  methods: {
+    async fetchNewsCategories () {
+      const res = await this.$http.get('news/list')
+      this.newsData = res.data
+    }
+  },
+  created () {
+    this.fetchNewsCategories()
   }
 }
 </script>

@@ -29,6 +29,7 @@ $colors:(
   "white_light":#f9f9f9,
   "grey_light":#999999,
   "grey_light_1":#666,
+  "grey_light_2":#777,
   "grey_dark":#222222,
 );
 $border-color:#d4d9de;
@@ -65,6 +66,13 @@ $font-sizes:(
  }
 }
 
+// 文字浮动
+.text-ellipsis{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 // flex
 .d-flex {
