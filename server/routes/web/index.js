@@ -90,5 +90,38 @@ module.exports = app => {
     }
     res.send(await Hero.find())
   })
+
+
+  // 英雄列表接口
+  router.get('/heroes/list', async (req, res) => {
+    // 分类为主体关联标题
+    const parent = await Category.findOne({
+      name: '英雄分类'
+    })
+    const category = await Category.aggregate([
+      // 条件查询
+      { $match: { parent: parent._id } },
+      // 以parent为主体查询集合
+      {
+        $lookup: {
+          from: 'heroes',//关联表
+          localField: '_id',// 本地键
+          foreignField: 'categories',//外地键
+          as: 'heroList'
+        }
+      }
+    ])
+    // 提取热门分类
+    const subCategories = category.map(v => v._id)
+    category.unshift({
+      name: '热门',
+      heroList: await Hero.find().where({
+        categories: { $in: subCategories }
+      }).limit(10).lean()
+    })
+
+    res.send(category)
+  })
+
   app.use('/web/api', router)
 }
