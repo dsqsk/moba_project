@@ -123,5 +123,22 @@ module.exports = app => {
     res.send(category)
   })
 
+  // 文章详情
+  router.get('/articles/:id', async (req, res) => {
+    const data = await Article.findById(req.params.id).lean()
+    // 相关资讯字段
+    data.related = await Article.find().where({
+      categories: { $in: data.categories }
+    }).limit(2)
+    res.send(data)
+  })
+
+
+  //英雄详情
+  router.get('/heroes/:id', async (req, res) => {
+    const data = await Hero.findById(req.params.id).populate('categories itemsWell itemsBad partners.hero counters.hero advantagers.hero').lean()
+    res.send(data)
+  })
+
   app.use('/web/api', router)
 }
