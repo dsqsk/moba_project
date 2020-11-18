@@ -19,6 +19,10 @@ a{
   color: #999999; 
 }
 
+p{
+  line-height: 1.2rem;
+}
+
 // 颜色定义
 $colors:(
   "primary":#db9e3f,
@@ -26,13 +30,19 @@ $colors:(
   "black":#000000,
   "dark":#343440,
   "select":#4b67af,
+  "blue":#4394e4,
+  "red":#791A16,
+  "brown":#33332C,
   "white_light":#f9f9f9,
   "grey_light":#999999,
   "grey_light_1":#666,
   "grey_light_2":#777,
+  "grey_light_3":#9fa0a0,
+  "grey_light_4":#eceef0,
+  "grey_border":#d4d9de,
   "grey_dark":#222222,
 );
-$border-color:#d4d9de;
+$border-color:map-get($colors,grey_border);
 @each $colorKey,$color in $colors {
   .text-#{$colorKey} {
     color:$color;
@@ -42,6 +52,12 @@ $border-color:#d4d9de;
   }
 }
 
+// borders
+@each $dir in (top,right,bottom,left) {
+  .border-#{$dir}{
+    border-#{$dir}:1px solid map-get($colors,grey_border);
+  }
+}
 // 文本定义
 @each $var in (left, center, right) {
   .text-#{$var} {
@@ -57,15 +73,18 @@ $font-sizes:(
   sm:0.9231,//12px
   md:1,//13px
   lg:1.0769,//14px
-  xl:1.2308//16px
+  lm:1.1538,
+  xl:1.2308,//16px
+  xxl:1.3846//18px
 );
-
 @each $sizeKey,$size in $font-sizes{
  .fs-#{$sizeKey}{
    font-size:$size * $base-font-size;
  }
 }
-
+.fw-b{
+  font-weight: bold;
+}
 // 文字浮动
 .text-ellipsis{
   display: inline-block;
@@ -181,6 +200,12 @@ $spacing-sizes:(
   border-radius: 0.1538rem;
   font-size: map-get($font-sizes,'xs') * $base-font-size;
   padding: 0.3rem 0.6rem;
+  &.btn-2{
+    background-color: map-get($colors,white_light);
+    border: 1px solid map-get($colors,grey_light_4);
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
 }
 // 导航
 .nav{
@@ -208,6 +233,21 @@ $spacing-sizes:(
   background:url(~@/assets/index.png) no-repeat 0 0;
   background-size:28.8462rem 35rem;
   display:inline-block;
+  &-up{
+    width: 0.7692rem;
+    height: 0.7692rem;
+    background-position:38.577% 52.076%;
+  }
+  &-topbar{
+    width: 28.8462rem;
+    height: 3.4615rem;
+    background-position: 0 87.195%;
+  }
+  &-logo{
+    width: 2.3077rem;
+    height: 2.3077rem;
+    background-position:0 72.588%;;
+  }
   &-blz{
     width: 1.7692rem;
     height: 1.5385rem;
@@ -268,11 +308,6 @@ $spacing-sizes:(
 	  height: 2.9231rem;
     background-position:97.447% 98.801%;
   }
-  &-up{
-    width: 0.7692rem;
-    height: 0.7692rem;
-    background-position:38.577% 52.076%;
-  }
   &-new {
     width: 1rem;
     height: 1rem;
@@ -283,4 +318,19 @@ $spacing-sizes:(
 	  height: 0.2308rem;
     background-position:47.619% 56.305%;
   }
+  &-hero{
+    width: 0.9231rem;
+    height: 1rem;
+    background-position:46.768% 60.452%;
+  }
+  &-video{
+    width: 1rem;
+    height: 0.8462rem;
+    background-position: 0.138% 56.532%;
+  }
+}
+.bg-video{
+  background: url(https://game.gtimg.cn/images/yxzj/m/m201706/images/herodetail/icon_06.png) no-repeat 0 0;
+  background-size: 3.0769rem 3.0769rem;
+  background-position:0%;
 }

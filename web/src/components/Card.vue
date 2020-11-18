@@ -1,9 +1,9 @@
 <template>
   <div class="card bg-white p-3 mt-3">
     <!-- card-header -->
-    <div class="card-header d-flex ai-center pb-3">
+    <div class="card-header d-flex ai-center" :class="{'border-bottom':!special,'pb-3':!special}">
       <i class="sprite" :class="`sprite-${icon}`"></i>
-      <div class="fs-xxl flex-1 px-2">{{title}}</div>
+      <div class="fs-xl flex-1 px-2" :class="{'fw-b':special}">{{title}}</div>
       <i class="sprite" :class="`sprite-${icon_more}`"></i>
     </div>
     <!-- card-body -->
@@ -19,6 +19,7 @@ export default {
     title: {},
     icon: {},
     icon_more: {},
+    special: { type: Boolean }
   }
 }
 </script>
@@ -26,9 +27,6 @@ export default {
 <style lang="scss">
 @import "../assets/style/style.scss";
 .card {
-  .card-header {
-    border-bottom: 1px solid $border-color;
-  }
   border-bottom: 1px solid $border-color;
 }
 </style>

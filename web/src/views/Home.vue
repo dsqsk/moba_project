@@ -73,18 +73,37 @@
       </div>
     </div>
     <!-- end nav icons -->
-    <m-list-card icon="new" title="新闻资讯" :categories="newsData">
+
+    <!-- 新闻列表 -->
+    <m-list-card icon="new" title="新闻资讯" icon_more="menu" :categories="newsData">
       <template #items="{category}">
-        <div class="py-2 fs-lg d-flex" v-for="(news,i) in category.newsList" :key="i">
+        <router-link :to="`/articles/${news._id}`" tag="div" class="py-2 fs-lg d-flex"
+          v-for="(news,i) in category.newsList" :key="i">
           <span class="text-select mr-2">[{{news.categoryName}}]</span>
           <span class="flex-1 text-grey_dark text-ellipsis pr-2">{{news.header}}</span>
           <span class="text-grey_light_2 fs-sm">{{news.createdAt | date}}</span>
+        </router-link>
+      </template>
+    </m-list-card>
+    <!-- 英雄列表 -->
+    <m-list-card icon="hero" title="英雄列表" icon_more="menu" :categories="heroData">
+      <template #items="{category}">
+        <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
+          <router-link tag="div" :to="`/heroes/${hero._id}`" class="p-2 text-center" style="width:20%;"
+            v-for="(hero,i) in category.heroList" :key="i">
+            <img :src="hero.avatar" class="w-100">
+            <div>{{hero.name}}</div>
+          </router-link>
         </div>
       </template>
     </m-list-card>
-    <m-card icon="new" icon_more="menu" title="英雄列表">
 
-    </m-card>
+    <m-list-card icon="video" title="精彩视频" icon_more="menu">
+      <template #items="">
+        <div>暂无内容</div>
+      </template>
+    </m-list-card>
+
   </div>
 </template> 
 
@@ -103,17 +122,23 @@ export default {
           el: '.swiper-pagination'
         }
       },
-      newsData: []
+      newsData: [],
+      heroData: []
     }
   },
   methods: {
     async fetchNewsCategories () {
       const res = await this.$http.get('news/list')
       this.newsData = res.data
+    },
+    async fetchHeroCategories () {
+      const res = await this.$http.get('heroes/list')
+      this.heroData = res.data
     }
   },
   created () {
     this.fetchNewsCategories()
+    this.fetchHeroCategories()
   }
 }
 </script>

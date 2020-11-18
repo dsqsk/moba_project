@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div class="topbar d-flex bg-black py-2 px-3 ai-center">
-      <img src="../assets/logo.png" height="30">
-      <div class="px-3 flex-1">
-        <div class="text-white">王者荣耀</div>
-        <div class="text-grey_light_1 fs-xxs">团队成就更多</div>
+    <div class="sprite sprite-topbar">
+      <div class="d-flex py-2 px-3 ai-center">
+        <i class="sprite sprite-logo"></i>
+        <div class="px-3 flex-1">
+          <div class="text-white">王者荣耀</div>
+          <div class="text-grey_light_1 fs-xxs">团队成就更多</div>
+        </div>
+        <button type="button" class="btn bg-primary">立即下载</button>
       </div>
-      <button type="button" class="btn bg-primary">立即下载</button>
     </div>
     <div class="bg-primary pt-3 pb-2">
       <div class="nav jc-around nav-inverse pb-1">
@@ -37,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss">
-.topbar {
+.sprite-topbar {
   position: sticky;
   top: 0;
   z-index: 999;
