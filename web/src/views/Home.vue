@@ -19,8 +19,10 @@
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-grey">
       <div class=" d-flex flex-wrap">
         <div class="nav-items mb-3">
-          <i class="sprite sprite-blz"></i>
-          <div class="py-2">爆料站</div>
+          <a href="https://pvp.qq.com/m/m201706/coming/index.htm" class="icon-link">
+            <i class="sprite sprite-blz"></i>
+            <div class="py-2">爆料站</div>
+          </a>
         </div>
         <div class="nav-items mb-3">
           <i class="sprite sprite-gsz"></i>
@@ -34,42 +36,42 @@
           <i class="sprite sprite-tyf"></i>
           <div class="py-2">体验服</div>
         </div>
-        <div class="nav-items mb-3">
+        <div class="nav-items mb-3" v-if="switchIcon">
           <i class="sprite sprite-xrzq"></i>
           <div class="py-2">新人专区</div>
         </div>
-        <div class="nav-items mb-3">
+        <div class="nav-items mb-3" v-if="switchIcon">
           <i class="sprite sprite-rycc"></i>
           <div class="py-2">荣耀·传承</div>
         </div>
-        <div class="nav-items mb-3">
+        <div class="nav-items mb-3" v-if="switchIcon">
           <i class="sprite sprite-wzyd"></i>
           <div class="py-2">王者营地</div>
         </div>
-        <div class="nav-items mb-3">
+        <div class="nav-items mb-3" v-if="switchIcon">
           <i class="sprite sprite-gzh"></i>
           <div class="py-2">公众号</div>
         </div>
-        <div class="nav-items mb-3">
+        <div class="nav-items mb-3" v-if="switchIcon">
           <i class="sprite sprite-bbjs"></i>
           <div class="py-2">版本介绍</div>
         </div>
-        <div class="nav-items mb-3">
+        <div class="nav-items mb-3" v-if="switchIcon">
           <i class="sprite sprite-djhj"></i>
           <div class="py-2">对局环境</div>
         </div>
-        <div class="nav-items mb-3">
+        <div class="nav-items mb-3" v-if="switchIcon">
           <i class="sprite sprite-djhj"></i>
           <div class="py-2">无限王者团</div>
         </div>
-        <div class="nav-items mb-3">
+        <div class="nav-items mb-3" v-if="switchIcon">
           <i class="sprite sprite-djhj"></i>
           <div class="py-2">创意互动营</div>
         </div>
       </div>
-      <div class="bg-white_light py-2 fs-sm ai-center jc-center">
-        <i class=" sprite sprite-up mr-1"></i>
-        <span>收起</span>
+      <div class="bg-white_light py-2 fs-sm ai-center jc-center" @click="switchIcon=!switchIcon">
+        <i class="sprite sprite-up mr-1" :class="{'sprite-down':!switchIcon}"></i>
+        <span>{{switchIcon?'收起':'展开'}}</span>
       </div>
     </div>
     <!-- end nav icons -->
@@ -87,6 +89,11 @@
     </m-list-card>
     <!-- 英雄列表 -->
     <m-list-card icon="hero" title="英雄列表" icon_more="menu" :categories="heroData">
+      <!-- <template v-slot:banner>
+        <div>
+          <img src="https://ossweb-img.qq.com/upload/webplat/info/yxzj/20201009/8900984516264.jpg" class="">
+        </div>
+      </template> -->
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
           <router-link tag="div" :to="`/heroes/${hero._id}`" class="p-2 text-center" style="width:20%;"
@@ -123,7 +130,8 @@ export default {
         }
       },
       newsData: [],
-      heroData: []
+      heroData: [],
+      switchIcon: false
     }
   },
   methods: {

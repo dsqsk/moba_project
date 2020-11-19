@@ -13,10 +13,12 @@ body{
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.2em;
   background: #f1f1f1;
+  width: 100%;
 }
 
 a{
-  color: #999999; 
+  color: #222222; 
+  text-decoration: none;
 }
 
 p{
@@ -41,6 +43,7 @@ $colors:(
   "grey_light_4":#eceef0,
   "grey_border":#d4d9de,
   "grey_dark":#222222,
+  "bar":#131528,
 );
 $border-color:map-get($colors,grey_border);
 @each $colorKey,$color in $colors {
@@ -208,6 +211,11 @@ $spacing-sizes:(
   }
 }
 // 导航
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 .nav{
   display: flex;
   .nav-item{
@@ -237,6 +245,12 @@ $spacing-sizes:(
     width: 0.7692rem;
     height: 0.7692rem;
     background-position:38.577% 52.076%;
+  }
+  &-down{
+    width: 0.7692rem;
+    height: 0.7692rem;
+    background-position:38.577% 52.076%;
+    transform:rotate(180deg);
   }
   &-topbar{
     width: 28.8462rem;

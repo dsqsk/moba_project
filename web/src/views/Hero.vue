@@ -1,6 +1,6 @@
 <template>
   <div class="page-hero" v-if="model">
-    <div class="sprite sprite-topbar top_title">
+    <div class="topbar bg-bar top_title">
       <div class="d-flex py-2 px-3 ai-center text-white">
         <i class="sprite sprite-logo"></i>
         <div class="px-3 flex-1">
@@ -108,7 +108,7 @@
               <p class="m-0 tips text-dark">{{model.teamfightTips}}</p>
             </m-card>
             <m-card special icon="hero" title="英雄关系">
-              <div class="fs-lm">最佳搭档</div>
+              <div class="fs-xl">最佳搭档</div>
               <div v-for="item in model.partners" :key="item.name" class="d-flex pt-4">
                 <img :src="item.hero.avatar" height="50">
                 <p class="flex-1 ml-3 m-0 tips text-dark">
