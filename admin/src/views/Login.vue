@@ -33,6 +33,12 @@ export default {
       })
       this.$router.push('/')
     }
+  },
+  created () {
+    this.$message({
+      type: 'success',
+      message: '初始用户名密码为admin'
+    })
   }
 }
 </script>

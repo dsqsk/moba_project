@@ -88,12 +88,7 @@
       </template>
     </m-list-card>
     <!-- 英雄列表 -->
-    <m-list-card icon="hero" title="英雄列表" icon_more="menu" :categories="heroData">
-      <!-- <template v-slot:banner>
-        <div>
-          <img src="https://ossweb-img.qq.com/upload/webplat/info/yxzj/20201009/8900984516264.jpg" class="">
-        </div>
-      </template> -->
+    <m-list-card icon="hero" title="英雄列表" icon_more="menu" :categories="heroData" bannerShow>
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
           <router-link tag="div" :to="`/heroes/${hero._id}`" class="p-2 text-center" style="width:20%;"

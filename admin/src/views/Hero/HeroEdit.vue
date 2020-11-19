@@ -11,7 +11,7 @@
             <el-input v-model="model.title"></el-input>
           </el-form-item>
           <el-form-item label='头像'>
-            <el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false"
+            <el-upload class="avatar-uploader" :action="uploadUrl()" :header="getAuthHeaders()" :show-file-list="false"
               :on-success="afterUploadAvator">
               <img v-if="model.avatar" :src="model.avatar" class="avatar">
               <i v-else class="el-icon-circle-plus-outline avatar-uploader-icon"></i>

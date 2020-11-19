@@ -57,9 +57,9 @@
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item @click.native="$router.push('/admin_users/list')">查看</el-dropdown-item>
+            <el-dropdown-item @click.native="$router.push('/admin_users/create')">新增</el-dropdown-item>
+            <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -73,7 +73,12 @@
 
 <script>
 export default {
-
+  methods: {
+    logout () {
+      localStorage.removeItem('token')
+      this.$router.push('/Login')
+    }
+  }
 }
 </script>
 

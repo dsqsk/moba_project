@@ -1,8 +1,5 @@
 <template>
   <m-card :icon="icon" :icon_more="icon_more" :title="title">
-    <template v-slot:banner>
-      <slot name="banner"></slot>
-    </template>
     <div class="nav jc-between">
       <div class="nav-item" :class="{active:active === i}" v-for="(category,i) in categories" :key="i"
         @click="$refs.listSwiper.swiper.slideTo(i)">
@@ -27,7 +24,7 @@ export default {
     icon: {},
     icon_more: {},
     title: {},
-    categories: { type: Array, required: true, }
+    categories: { type: Array, required: true, },
   },
   data () {
     return {
@@ -40,5 +37,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.newHeroBanner {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid;
+}
 </style>

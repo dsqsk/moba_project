@@ -18,8 +18,7 @@ export default {
   props: {
     title: {},
     icon: {},
-    icon_more: {},
-    special: { type: Boolean }
+    icon_more: {}
   }
 }
 </script>
