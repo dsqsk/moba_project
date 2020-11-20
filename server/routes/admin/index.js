@@ -60,7 +60,6 @@ module.exports = app => {
     res.send(file)
   })
 
-  res.send(file)
   // 登录模块
   app.post('/admin/api/login', async (req, res) => {
     // const data = req.body
