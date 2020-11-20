@@ -9,6 +9,8 @@ app.set('secret', '12hjk5241jk2h')
 app.use(require('cors')())
 app.use(express.json())
 // 静态文件托管
+app.use('/admin', express.static(__dirname + '/admin'))
+app.use('/web', express.static(__dirname + '/web'))
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
 require('./routes/admin')(app)
