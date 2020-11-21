@@ -72,7 +72,7 @@ module.exports = app => {
     assert(user, 403, '用户不存在')
 
     // 校验密码
-    const bcrypt = require('bcrypt')
+    const bcrypt = require('bcryptjs')
     const isValid = bcrypt.compareSync(password, user.password)
     assert(isValid, 403, '用户不存在')
 
