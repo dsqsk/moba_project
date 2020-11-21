@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     async save () {
-      let res
+      let res // eslint-disable-line no-unused-vars
       // 有id修改 无id新建
       if (this.id) {
         res = await this.$http.put(`/rest/ads/${this.id}`, this.model)
@@ -60,7 +60,6 @@ export default {
         //   name: this.model.name
         // }
       }
-      console.log(res)
       this.$router.push('/ads/list')
       this.$message({
         type: 'success',
